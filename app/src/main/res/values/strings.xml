@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Arduino Controller</string>
+    <string name="main_title">Main Arduino Switches</string>
+    <string name="action_settings">Settings</string>
+    <string name="switch_movement">Movement Sensor</string>
+    <string name="switch_magnet">Magnet Sensor</string>
+    <string name="switch_light">Light Sensor</string>
+
+</resources>
