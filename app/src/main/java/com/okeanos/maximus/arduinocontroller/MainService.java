@@ -36,6 +36,7 @@ public class MainService extends Activity {
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     String SENDER_ID = "82258115354";
+    String REGISTRATION_ID  = "APA91bEvMmoQndNVtbPPKFzgojA7A8d89G0KfcYwCEl1XzuBwnfuC2SkgMmpX43rADkPbgmrD_TpkAKj9oju2sTkVKPSmQ5iph7U8O7Kh6MFDv-4br8yaiUZEFdgRyvKN50gBYcvmFpC0lT1e7ki2esMedR4Etwe9iY-b5j5ja3O_tXmgcncF0A";
     static final String TAG = "GCMDemo";
 
     TextView mDisplay;
@@ -69,11 +70,11 @@ public class MainService extends Activity {
         else {Toast.makeText(getApplicationContext(), "Gcm OK", Toast.LENGTH_SHORT).show();}
 
 
-        regid = getRegistrationId(context);
+        regid = REGISTRATION_ID; //getRegistrationId(context);
 
         if (regid.isEmpty())   { Toast.makeText(getApplicationContext(), "Registration Id is NULL", Toast.LENGTH_SHORT).show();
             registerInBackground(); }
-        else {Toast.makeText(getApplicationContext(), "Registration Id OK", Toast.LENGTH_SHORT).show();}
+        else {Toast.makeText(getApplicationContext(), ("Registration Id OK "+ regid), Toast.LENGTH_SHORT).show();}
 
      //   if (regid.isEmpty()) {
       //      registerInBackground();
@@ -207,11 +208,13 @@ public class MainService extends Activity {
           HttpPost post = new HttpPost(("83.212.84.224:8080/ArduinoRestService/rest/regid/" + regId));
           HttpResponse response;
           response = client.execute(post);
-          Toast.makeText(getApplicationContext(), ("REGG IDDDDD" + regid), Toast.LENGTH_SHORT).show();
+            Log.v("Asynck", "registered to Server");
+         // Toast.makeText(getApplicationContext(), ("REGG IDDDDD" + regid), Toast.LENGTH_SHORT).show();
         }
         else
         {
-            Toast.makeText(getApplicationContext(), ("REGG id is NULL " + regid), Toast.LENGTH_SHORT).show();
+            Log.v("Asynck", "FAILED TO register to Server");
+           // Toast.makeText(getApplicationContext(), ("REGG id is NULL " + regid), Toast.LENGTH_SHORT).show();
         }
 
 
@@ -228,32 +231,54 @@ public class MainService extends Activity {
     }
 
     private void registerInBackground() {
-     //   Toast.makeText(getApplicationContext(), ("STARTED"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), ("STARTED"), Toast.LENGTH_SHORT).show();
         new AsyncTask<Void,Void,String>() {
 
             protected String doInBackground(Void... params) {
-             //   String msg = "dfghjkihgfd";
-              //  Toast.makeText(getApplicationContext(), ("step 1"), Toast.LENGTH_SHORT).show();
+                String msg = "dfghjkihgfd";
+               // Toast.makeText(getApplicationContext(), ("step 1"), Toast.LENGTH_SHORT).show();
+                Log.v("Asynck","step 1");
                 try {
-                //    Toast.makeText(getApplicationContext(), ("step 2"), Toast.LENGTH_SHORT).show();
-              //      if (gcm == null) {
-             //           Toast.makeText(getApplicationContext(), ("step 3"), Toast.LENGTH_SHORT).show();
-           //             gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                        Toast.makeText(getApplicationContext(), (gcm.toString()), Toast.LENGTH_SHORT).show();
-           //         }else{
-             //           Toast.makeText(getApplicationContext(), ("step 4"), Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getApplicationContext(), ("step 2"), Toast.LENGTH_SHORT).show();
+                    Log.v("Asynck", "step 2");
+                    if (gcm == null) {
+                      // Toast.makeText(getApplicationContext(), ("step 3"), Toast.LENGTH_SHORT).show();
+                        Log.v("Asynck", "step 3");
                         gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-           //             Toast.makeText(getApplicationContext(), (gcm.toString()), Toast.LENGTH_SHORT).show();
+                        Log.v("Asynck", gcm.toString());
+                        //Toast.makeText(getApplicationContext(), (gcm.toString()), Toast.LENGTH_SHORT).show();
 
-           //        }
-                //    Toast.makeText(getApplicationContext(), ("step 5"), Toast.LENGTH_SHORT).show();
+                    }else{
+                        //Toast.makeText(getApplicationContext(), ("step 4"), Toast.LENGTH_SHORT).show();
+                        Log.v("Asynck", "step 4");
+                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+                        //Toast.makeText(getApplicationContext(), (gcm.toString()), Toast.LENGTH_SHORT).show();
+                        Log.v("Asynck", gcm.toString());
+                    }
+                   // Toast.makeText(getApplicationContext(), ("step 5"), Toast.LENGTH_SHORT).show();
+                    Log.v("Asynck", "step 5");
+                    Log.v("Asynck", SENDER_ID);
                     regid = gcm.register(SENDER_ID);
 
-               //     Toast.makeText(getApplicationContext(), ("step 6"), Toast.LENGTH_SHORT).show();
-                    if (regid.isEmpty() ){Toast.makeText(getApplicationContext(), "Registration is NULL", Toast.LENGTH_SHORT).show();}
-                    else if( regid ==""){Toast.makeText(getApplicationContext(), "Registration is EMPTY", Toast.LENGTH_SHORT).show();}
-                    else {Toast.makeText(getApplicationContext(), ("Registration OK" + regid), Toast.LENGTH_SHORT).show();}
-                    Toast.makeText(getApplicationContext(), ("step 7"), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), ("step 6"), Toast.LENGTH_SHORT).show();
+                    Log.v("Asynck", "step 6");
+                    if (regid.isEmpty() )
+                    {
+                        //Toast.makeText(getApplicationContext(), "Registration is NULL", Toast.LENGTH_SHORT).show();
+                        Log.v("Asynck", "Registration is NULL");
+                    }
+                    else if( regid =="")
+                    {
+                       // Toast.makeText(getApplicationContext(), "Registration is EMPTY", Toast.LENGTH_SHORT).show();
+                        Log.v("Asynck", "Registration is EMTY");
+                    }
+                    else
+                    {
+                       // Toast.makeText(getApplicationContext(), ("Registration OK" + regid), Toast.LENGTH_SHORT).show();
+                        Log.v("Asynck", ("Registration is OK " + regid));
+                    }
+                  //  Toast.makeText(getApplicationContext(), ("step 7"), Toast.LENGTH_SHORT).show();
+                    Log.v("Asynck", "Step - 7");
                    // msg = "Device registered, registration ID=" + regid;
                     sendRegistrationIdToBackend(regid);
                     storeRegistrationId(context, regid);
