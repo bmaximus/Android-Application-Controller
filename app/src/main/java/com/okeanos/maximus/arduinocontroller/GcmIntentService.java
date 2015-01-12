@@ -58,7 +58,8 @@ public class GcmIntentService extends IntentService {
                 }
                 Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
+                String msgg = intent.getStringExtra("price");
+                sendNotification(msgg);//extras.toString());
                 Log.i(TAG, "Received: " + extras.toString());
             }
         }
@@ -70,6 +71,7 @@ public class GcmIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(String msg) {
+           // msg = msg.substring(40);
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -78,8 +80,8 @@ public class GcmIntentService extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.common_signin_btn_icon_dark)
-                        .setContentTitle("GCM Notification")
+                        .setSmallIcon(R.drawable.ic_launcher)//common_signin_btn_icon_dark)
+                        .setContentTitle("Arduino Notification")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg);
