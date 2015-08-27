@@ -36,9 +36,9 @@ public class MainService extends Activity {
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     String SENDER_ID = "82258115354";
-    String REGISTRATION_ID  = "APA91bEvMmoQndNVtbPPKFzgojA7A8d89G0KfcYwCEl1XzuBwnfuC2SkgMmpX43rADkPbgmrD_TpkAKj9oju2sTkVKPSmQ5iph7U8O7Kh6MFDv-4br8yaiUZEFdgRyvKN50gBYcvmFpC0lT1e7ki2esMedR4Etwe9iY-b5j5ja3O_tXmgcncF0A";
+    // String REGISTRATION_ID  = "APA91bEvMmoQndNVtbPPKFzgojA7A8d89G0KfcYwCEl1XzuBwnfuC2SkgMmpX43rADkPbgmrD_TpkAKj9oju2sTkVKPSmQ5iph7U8O7Kh6MFDv-4br8yaiUZEFdgRyvKN50gBYcvmFpC0lT1e7ki2esMedR4Etwe9iY-b5j5ja3O_tXmgcncF0A";
+    String REGISTRATION_ID  = "APA91bE2MARvhS7piffKXFrEh6n7vqYAzLgI7P3eswEQLfF-X-aDHhfMp2x0pAV_xonnzst6kwzzpJKphBpbSOcpaI6JUTGsaS25ywyVjQECdekCQtsz-R1z0OTdSDeYtOCJYTfwZENiGMlr0GnHtO6VSOJkurictQ";
     static final String TAG = "GCMDemo";
-
     TextView mDisplay;
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
@@ -72,13 +72,10 @@ public class MainService extends Activity {
 
         regid = REGISTRATION_ID; //getRegistrationId(context);
 
-        if (regid.isEmpty())   { Toast.makeText(getApplicationContext(), "Registration Id is NULL", Toast.LENGTH_SHORT).show();
+         if (regid.isEmpty())   { Toast.makeText(getApplicationContext(), "Registration Id is NULL", Toast.LENGTH_SHORT).show();
             registerInBackground(); }
         else {Toast.makeText(getApplicationContext(), ("Registration Id OK "+ regid), Toast.LENGTH_SHORT).show();}
-
-     //   if (regid.isEmpty()) {
-      //      registerInBackground();
-       // }
+        //registerInBackground();
 
 
     }
